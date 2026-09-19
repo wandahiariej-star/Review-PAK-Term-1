@@ -1,0 +1,1385 @@
+<lin<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petualangan Iman: Hamartia & The Old Me - Kelas 5 SD</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter & Outfit -->k href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                        },
+                        amber: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        display: ['"Fredoka"', 'cursive'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #e0f2fe 0%, #f0fdf4 50%, #faf5ff 100%);
+            min-height: 100vh;
+        }
+        .font-display {
+            font-family: 'Fredoka', cursive;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .badge-glow {
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+        }
+        .animate-bounce-short {
+            animation: bounceShort 0.6s ease-in-out infinite alternate;
+        }
+        @keyframes bounceShort {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-6px); }
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased selection:bg-sky-200 selection:text-sky-900 pb-12">
+
+    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-sky-100 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center text-white text-xl shadow-md font-bold">
+                    <i class="fa-solid font-display">✝</i>
+                </div>
+                <div>
+                    <h1 class="font-display text-lg md:text-xl font-bold text-slate-800 leading-tight">Petualangan Iman</h1>
+                    <p class="text-xs text-sky-600 font-semibold">Agama Kristen & Budi Pekerti • Kelas 5 SD</p>
+                </div>
+            </div>
+
+            <!-- Profile & Stats Ticker -->
+            <div class="flex items-center gap-2 sm:gap-4">
+                <div class="bg-amber-50 border border-amber-200 px-3 py-1.5 rounded-full flex items-center gap-2 text-xs font-bold text-amber-700">
+                    <i class="fa-solid fa-star text-amber-500 text-sm"></i>
+                    <span id="stat-score">0 Poin</span>
+                </div>
+                <div class="bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-full flex items-center gap-2 text-xs font-bold text-emerald-700 hidden sm:flex">
+                    <i class="fa-solid fa-fire text-emerald-500 text-sm"></i>
+                    <span id="stat-streak">Combo x0</span>
+                </div>
+                <button onclick="toggleAudio()" id="audio-btn" class="w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition">
+                    <i class="fa-solid fa-volume-high" id="audio-icon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 pt-6">
+
+        <!-- Banner & Character Selection Section -->
+        <div id="player-banner" class="bg-gradient-to-r from-sky-600 via-indigo-600 to-purple-600 rounded-3xl p-6 text-white shadow-xl mb-6 relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
+                <div class="flex items-center gap-4">
+                    <div class="relative cursor-pointer" onclick="openAvatarModal()" title="Klik untuk ganti Avatar">
+                        <div id="avatar-display" class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white/20 backdrop-blur border-2 border-white/40 flex items-center justify-center text-3xl sm:text-4xl shadow-inner">
+                            🤠
+                        </div>
+                        <span class="absolute -bottom-1 -right-1 bg-amber-400 text-amber-950 text-[10px] font-extrabold px-2 py-0.5 rounded-full shadow">UBAH</span>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h2 id="player-name-display" class="font-display text-2xl sm:text-3xl font-bold">Sahabat Kristus</h2>
+                            <button onclick="editPlayerName()" class="text-sky-200 hover:text-white text-xs"><i class="fa-solid fa-pen"></i></button>
+                        </div>
+                        <p class="text-xs sm:text-sm text-sky-100 mt-1">
+                            Topik: <span class="bg-sky-500/40 px-2 py-0.5 rounded font-semibold text-white">Hamartia (Dosa)</span> & 
+                            <span class="bg-purple-500/40 px-2 py-0.5 rounded font-semibold text-white">The Old Me vs The New Me</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Navigation Tabs -->
+                <div class="flex flex-wrap items-center justify-center gap-2 bg-black/20 p-1.5 rounded-2xl backdrop-blur-md border border-white/10 w-full md:w-auto">
+                    <button onclick="switchTab('hub')" id="tab-btn-hub" class="tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-2 bg-white text-sky-900 shadow">
+                        <i class="fa-solid fa-book-open"></i> Materi
+                    </button>
+                    <button onclick="switchTab('pg')" id="tab-btn-pg" class="tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-2 text-white hover:bg-white/10">
+                        <i class="fa-solid fa-list-check"></i> 30 PG Kompleks
+                    </button>
+                    <button onclick="switchTab('essay')" id="tab-btn-essay" class="tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-2 text-white hover:bg-white/10">
+                        <i class="fa-solid fa-pen-fancy"></i> 5 Esai
+                    </button>
+                    <button onclick="switchTab('result')" id="tab-btn-result" class="tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-2 text-white hover:bg-white/10">
+                        <i class="fa-solid fa-award"></i> Hasil & Sertifikat
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-hub" class="space-y-6">
+            <div class="text-center max-w-2xl mx-auto mb-8">
+                <span class="bg-sky-100 text-sky-800 text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">Ringkasan Konsep Kunci</span>
+                <h2 class="font-display text-2xl sm:text-3xl font-bold text-slate-800 mt-2">Pahami Sebelum Mengerjakan Tantangan!</h2>
+                <p class="text-slate-600 text-xs sm:text-sm mt-1">Pelajari 4 pilar penting topik Hamartia dan Pertubahan Manusia Baru berikut ini.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+                <!-- Card 1: Hamartia -->
+                <div class="bg-white rounded-2xl p-5 border border-slate-100 shadow-md hover:shadow-xl transition transform hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-xl bg-red-100 text-red-600 flex items-center justify-center text-xl mb-4 font-bold">
+                        🎯
+                    </div>
+                    <h3 class="font-display font-bold text-lg text-slate-800">1. Arti Hamartia</h3>
+                    <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                        Berasal dari bahasa Yunani yang berarti <b class="text-red-600">"meleset dari sasaran"</b>. Seperti anak panah yang gagal mengenai titik pusat, dosa adalah kegagalan manusia memenuhi standar kebenaran Allah.
+                    </p>
+                    <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] text-slate-500 flex items-center gap-1">
+                        <i class="fa-solid fa-bible text-sky-500"></i> Roma 3:23 & Kejadian 2:16-17
+                    </div>
+                </div>
+
+                <!-- Card 2: Dampak Dosa -->
+                <div class="bg-white rounded-2xl p-5 border border-slate-100 shadow-md hover:shadow-xl transition transform hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl mb-4 font-bold">
+                        🧁
+                    </div>
+                    <h3 class="font-display font-bold text-lg text-slate-800">2. Analogi Telur Busuk</h3>
+                    <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                        Satu butir telur busuk merusak seluruh adonan kue. Demikian juga <b class="text-amber-700">sedikit dosa saja</b> merusak seluruh natur, pikiran, dan hubungan manusia dengan Allah (Mati secara roh).
+                    </p>
+                    <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] text-slate-500 flex items-center gap-1">
+                        <i class="fa-solid fa-triangle-exclamation text-amber-500"></i> Roma 6:23 & Habakuk 1:13a
+                    </div>
+                </div>
+
+                <!-- Card 3: Strategi Iblis -->
+                <div class="bg-white rounded-2xl p-5 border border-slate-100 shadow-md hover:shadow-xl transition transform hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center text-xl mb-4 font-bold">
+                        🐍
+                    </div>
+                    <h3 class="font-display font-bold text-lg text-slate-800">3. Strategi Iblis</h3>
+                    <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                        Iblis menggoda manusia dengan 3 tahap: <b>He Twists</b> (memutarbalikkan kata), <b>He Lies</b> (berbohong/menipu), dan <b>He Destroys</b> (merusak hubungan kita dengan Tuhan).
+                    </p>
+                    <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] text-slate-500 flex items-center gap-1">
+                        <i class="fa-solid fa-masks-theater text-purple-500"></i> Kisah Hawa & Kain (Kej 3-4)
+                    </div>
+                </div>
+
+                <!-- Card 4: Old Me vs New Me -->
+                <div class="bg-white rounded-2xl p-5 border border-slate-100 shadow-md hover:shadow-xl transition transform hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl mb-4 font-bold">
+                        🌱
+                    </div>
+                    <h3 class="font-display font-bold text-lg text-slate-800">4. Head, Heart, Hand</h3>
+                    <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                        Meninggalkan <b>The Old Me</b> (sombong, iri, curang, cuek) menuju <b>The New Me</b> melalui perubahan utuh: <b class="text-emerald-600">HEAD</b> (Pikiran), <b class="text-emerald-600">HEART</b> (Penyesalan Hati), <b class="text-emerald-600">HAND</b> (Tindakan Nyata).
+                    </p>
+                    <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] text-slate-500 flex items-center gap-1">
+                        <i class="fa-solid fa-heart text-rose-500"></i> Yosua 24:15 & Yakobus 4:17
+                    </div>
+                </div>
+            </div>
+
+            <!-- Start Game CTA Banner -->
+            <div class="bg-gradient-to-br from-slate-900 to-indigo-950 rounded-3xl p-6 sm:p-8 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl mt-8">
+                <div class="space-y-2 text-center md:text-left">
+                    <div class="inline-block bg-amber-400 text-amber-950 font-extrabold text-xs px-3 py-1 rounded-full uppercase tracking-wide">Siap Diuji?</div>
+                    <h3 class="font-display text-2xl font-bold">Mulai Tantangan Soal Pilihan Ganda Kompleks</h3>
+                    <p class="text-xs sm:text-sm text-slate-300 max-w-xl">
+                        Ingat! Setiap soal PG Kompleks memiliki <b>LEBIH DARI SATU jawaban benar</b>. Berilah centang pada semua pilihan yang tepat!
+                    </p>
+                </div>
+                <button onclick="switchTab('pg')" class="px-6 py-3.5 bg-amber-400 hover:bg-amber-300 text-amber-950 font-display font-bold text-base rounded-2xl shadow-lg transition transform hover:scale-105 active:scale-95 flex items-center gap-2 whitespace-nowrap">
+                    <i class="fa-solid fa-gamepad text-lg"></i> Mulai Game PG
+                </button>
+            </div>
+        </div>
+
+        <div id="view-pg" class="hidden space-y-6">
+            
+            <!-- Quiz Control & Progress Bar Header -->
+            <div class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-3 w-full sm:w-auto">
+                    <span id="pg-progress-text" class="font-display text-lg font-bold text-slate-800 whitespace-nowrap">Soal 1 dari 30</span>
+                    <div class="w-full sm:w-48 bg-slate-100 rounded-full h-3 overflow-hidden border border-slate-200">
+                        <div id="pg-progress-bar" class="bg-gradient-to-r from-sky-500 to-indigo-600 h-full w-0 transition-all duration-300"></div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+                    <button onclick="prevQuestion()" id="btn-prev-q" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition disabled:opacity-40 disabled:cursor-not-allowed">
+                        <i class="fa-solid fa-arrow-left mr-1"></i> Sebelum
+                    </button>
+                    <button onclick="nextQuestion()" id="btn-next-q" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition">
+                        Lanjut <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Question Card Container -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-lg relative">
+                <!-- Question Header -->
+                <div class="flex items-start justify-between gap-4">
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-2">
+                            <span class="bg-sky-100 text-sky-800 text-xs font-bold px-2.5 py-0.5 rounded-md uppercase">Pilihan Ganda Kompleks</span>
+                            <span class="text-xs text-amber-600 font-semibold bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200"><i class="fa-solid fa-square-check mr-1"></i>Centang Semua Jawaban Benar</span>
+                        </div>
+                        <h3 id="q-title" class="font-display text-lg sm:text-xl font-bold text-slate-900 mt-2 leading-snug">
+                            Loading pertanyaan...
+                        </h3>
+                    </div>
+                    <div class="w-10 h-10 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center font-bold text-sm shrink-0 border border-sky-100" id="q-num-badge">
+                        1
+                    </div>
+                </div>
+
+                <!-- Checkbox Options List -->
+                <div id="q-options-container" class="space-y-3 mt-6">
+                    <!-- Dynamic rendering of options -->
+                </div>
+
+                <!-- Immediate Action Buttons & Feedback Box -->
+                <div class="mt-8 pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <button onclick="checkCurrentAnswer()" id="btn-check-ans" class="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white font-display font-bold text-sm rounded-xl shadow-md transition transform active:scale-95 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-magnifying-glass"></i> Cek Jawaban Nomor Ini
+                    </button>
+
+                    <div class="text-xs text-slate-500 font-medium flex items-center gap-2">
+                        <i class="fa-solid fa-circle-info text-sky-500"></i> Skor Soal: 2 Poin (Penuh) / 1 Poin (Parsial)
+                    </div>
+                </div>
+
+                <!-- Feedback & Explanation Box (Initially Hidden) -->
+                <div id="q-explanation-box" class="hidden mt-6 p-5 rounded-2xl border transition-all duration-300">
+                    <div class="flex items-start gap-3">
+                        <div id="q-feedback-icon" class="text-2xl mt-0.5"></div>
+                        <div class="space-y-1">
+                            <h4 id="q-feedback-title" class="font-display font-bold text-base"></h4>
+                            <p id="q-explanation-text" class="text-xs sm:text-sm leading-relaxed"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Question Navigator Grid -->
+            <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm">
+                <h4 class="font-display font-bold text-sm text-slate-700 mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-grip text-sky-500"></i> Navigasi Soal (30 Nomor)
+                </h4>
+                <div id="q-nav-grid" class="grid grid-cols-6 sm:grid-cols-10 md:grid-cols-15 gap-2">
+                    <!-- Grid buttons dynamically generated -->
+                </div>
+            </div>
+        </div>
+
+        <div id="view-essay" class="hidden space-y-6">
+            <div class="text-center max-w-2xl mx-auto">
+                <span class="bg-purple-100 text-purple-800 text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">Refleksi & Aplikasi Hidup</span>
+                <h2 class="font-display text-2xl sm:text-3xl font-bold text-slate-800 mt-2">5 Tantangan Esai Kontekstual</h2>
+                <p class="text-slate-600 text-xs sm:text-sm mt-1">Tuliskan jawaban reflektifmu berdasarkan firman Tuhan dan situasi kehidupan anak kelas 5 SD!</p>
+            </div>
+
+            <!-- Essay Items Container -->
+            <div id="essay-list-container" class="space-y-8">
+                <!-- Dynamically rendered essay questions -->
+            </div>
+
+            <!-- Submit Essays Action -->
+            <div class="bg-gradient-to-r from-purple-900 to-indigo-900 rounded-3xl p-6 text-white text-center shadow-xl space-y-4">
+                <h3 class="font-display text-xl font-bold">Sudah Menyelesaikan Seluruh Esai?</h3>
+                <p class="text-xs text-purple-200 max-w-md mx-auto">Pastikan kamu sudah mencentang rubrik mandiri dan memeriksa jawabanmu sebelum melihat laporan akhir!</p>
+                <button onclick="finishAllTasks()" class="px-8 py-3.5 bg-amber-400 hover:bg-amber-300 text-amber-950 font-display font-bold rounded-2xl shadow-lg transition transform hover:scale-105">
+                    <i class="fa-solid fa-flag-checkered mr-2"></i> Lihat Hasil Akhir & Sertifikat
+                </button>
+            </div>
+        </div>
+
+        <div id="view-result" class="hidden space-y-8">
+            <!-- Score Card Summary -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-xl text-center relative overflow-hidden">
+                <div class="absolute -top-10 -right-10 w-40 h-40 bg-amber-200/30 rounded-full blur-2xl pointer-events-none"></div>
+
+                <span class="bg-emerald-100 text-emerald-800 text-xs font-extrabold px-3 py-1 rounded-full uppercase">Laporan Hasil Akhir</span>
+                <h2 class="font-display text-3xl sm:text-4xl font-bold text-slate-800 mt-2">Hasil Petualangan Imanmu</h2>
+
+                <!-- Final Score Big Badge -->
+                <div class="my-6 inline-flex flex-col items-center justify-center w-36 h-36 rounded-full bg-gradient-to-tr from-amber-400 to-amber-500 text-amber-950 shadow-lg border-4 border-white badge-glow">
+                    <span id="res-final-score" class="font-display text-4xl font-extrabold leading-none">0</span>
+                    <span class="text-[11px] font-bold tracking-wider mt-1 uppercase">Nilai Akhir</span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto mt-2">
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                        <div class="text-xs text-slate-500 font-semibold">Skor PG Kompleks (30 Soal)</div>
+                        <div id="res-pg-score" class="font-display text-xl font-bold text-slate-800 mt-1">0 / 60 Poin</div>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                        <div class="text-xs text-slate-500 font-semibold">Tingkat Akurasi</div>
+                        <div id="res-accuracy" class="font-display text-xl font-bold text-sky-600 mt-1">0%</div>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                        <div class="text-xs text-slate-500 font-semibold">Predikat Karakter</div>
+                        <div id="res-predicate" class="font-display text-xl font-bold text-emerald-600 mt-1">Laskar Kristus</div>
+                    </div>
+                </div>
+
+                <!-- Unlocked Badges Showcase -->
+                <div class="mt-8 pt-6 border-t border-slate-100">
+                    <h4 class="font-display font-bold text-sm text-slate-700 mb-4"><i class="fa-solid fa-award text-amber-500 mr-1"></i> Lencana Karakter Terbuka</h4>
+                    <div id="badges-container" class="flex flex-wrap items-center justify-center gap-3">
+                        <!-- Dynamic badges rendering -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Printable Digital Certificate View -->
+            <div id="certificate-card" class="bg-amber-50/60 rounded-3xl p-6 sm:p-10 border-4 border-amber-300 shadow-2xl relative text-center">
+                <div class="border-2 border-dashed border-amber-400 p-6 sm:p-8 rounded-2xl relative bg-white/80 backdrop-blur">
+                    <div class="flex items-center justify-between text-amber-600 text-xs font-bold mb-4">
+                        <span>SERIKAT PENDIDIKAN AGAMA KRISTEN</span>
+                        <span>KELAS 5 SD</span>
+                    </div>
+
+                    <div class="text-3xl sm:text-4xl font-display font-extrabold text-slate-900 tracking-wide uppercase">
+                        📜 SERTIFIKAT KELULUSAN
+                    </div>
+                    <p class="text-xs text-slate-500 mt-1 italic">Diberikan sebagai penghargaan atas ketekunan mempelajari materi Hamartia & Pertumbuhan Manusia Baru</p>
+
+                    <div class="my-6">
+                        <p class="text-xs text-slate-600">Diberikan Kepada:</p>
+                        <h3 id="cert-student-name" class="font-display text-2xl sm:text-3xl font-extrabold text-indigo-900 border-b-2 border-indigo-200 inline-block px-6 py-1 mt-1">
+                            Sahabat Kristus
+                        </h3>
+                    </div>
+
+                    <p class="text-xs sm:text-sm text-slate-700 max-w-lg mx-auto leading-relaxed">
+                        Telah berhasil menyelesaikan <b>30 Soal PG Kompleks</b> dan <b>5 Refleksi Esai</b> mengenai topik 
+                        <i>"Hamartia (Meleset dari Sasaran)"</i> dan komitmen meninggalkan <i>"The Old Me"</i> menjadi <i>"The New Me"</i> dengan hasil yang sangat baik.
+                    </p>
+
+                    <div class="mt-8 flex items-center justify-between pt-6 border-t border-amber-200 text-xs text-slate-500">
+                        <div>
+                            <div class="font-bold text-slate-800">Tanggal Selesai:</div>
+                            <div id="cert-date">19 September 2026</div>
+                        </div>
+                        <div class="w-16 h-16 rounded-full bg-amber-100 border-2 border-amber-400 flex items-center justify-center text-amber-700 font-display font-bold text-xl">
+                            ✝
+                        </div>
+                        <div>
+                            <div class="font-bold text-slate-800">Status Pembelajaran:</div>
+                            <div class="text-emerald-600 font-bold">LULUS DENGAN TERPUJI</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-center gap-4">
+                <button onclick="window.print()" class="px-6 py-3 bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs sm:text-sm rounded-xl shadow-md transition flex items-center gap-2">
+                    <i class="fa-solid fa-print"></i> Cetak / Simpan Sertifikat
+                </button>
+                <button onclick="restartQuiz()" class="px-6 py-3 bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs sm:text-sm rounded-xl shadow-md transition flex items-center gap-2">
+                    <i class="fa-solid fa-rotate-right"></i> Main Lagi
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="avatar-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl p-6 max-w-sm w-full shadow-2xl border border-slate-100 text-center space-y-4">
+            <h3 class="font-display font-bold text-xl text-slate-800">Pilih Avatar Petualang</h3>
+            <div class="grid grid-cols-4 gap-3">
+                <button onclick="selectAvatar('🤠')" class="text-3xl p-3 rounded-2xl bg-slate-100 hover:bg-sky-100 transition">🤠</button>
+                <button onclick="selectAvatar('👑')" class="text-3xl p-3 rounded-2xl bg-slate-100 hover:bg-sky-100 transition">👑</button>
+                <button onclick="selectAvatar('🛡️')" class="text-3xl p-3 rounded-2xl bg-slate-100 hover:bg-sky-100 transition">🛡️</button>
+                <button onclick="selectAvatar('🕊️')" class="text-3xl p-3 rounded-2xl bg-slate-100 hover:bg-sky-100 transition">🕊️</button>
+                <button onclick="selectAvatar('🦁')" class="text-3xl p-3 rounded-2xl bg-slate-100 hover:bg-sky-100 transition">🦁</button>
+                <button onclick="selectAvatar('⭐')" class="text-3xl p-3 rounded-2xl bg-slate-100 hover:bg-sky-100 transition">⭐</button>
+                <button onclick="selectAvatar('🌱')" class="text-3xl p-3 rounded-2xl bg-slate-100 hover:bg-sky-100 transition">🌱</button>
+                <button onclick="selectAvatar('📖')" class="text-3xl p-3 rounded-2xl bg-slate-100 hover:bg-sky-100 transition">📖</button>
+            </div>
+            <button onclick="closeAvatarModal()" class="w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl">Tutup</button>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-xl border border-slate-700 flex items-center gap-3 text-xs sm:text-sm font-semibold pointer-events-none">
+        <i id="toast-icon" class="fa-solid fa-circle-check text-emerald-400"></i>
+        <span id="toast-message">Notifikasi</span>
+    </div>
+
+    <script>
+        // Web Audio Synthesizer for sound effects
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        let audioCtx = null;
+        let soundEnabled = true;
+
+        function playSound(type) {
+            if (!soundEnabled) return;
+            try {
+                if (!audioCtx) audioCtx = new AudioCtx();
+                const now = audioCtx.currentTime;
+
+                if (type === 'click') {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(400, now);
+                    osc.frequency.exponentialRampToValueAtTime(800, now + 0.05);
+                    gain.gain.setValueAtTime(0.1, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.05);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.05);
+                } else if (type === 'correct') {
+                    const osc1 = audioCtx.createOscillator();
+                    const osc2 = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc1.type = 'triangle';
+                    osc2.type = 'triangle';
+                    osc1.frequency.setValueAtTime(523.25, now); // C5
+                    osc2.frequency.setValueAtTime(659.25, now + 0.08); // E5
+                    gain.gain.setValueAtTime(0.15, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+                    osc1.connect(gain);
+                    osc2.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc1.start(now);
+                    osc2.start(now + 0.08);
+                    osc1.stop(now + 0.3);
+                    osc2.stop(now + 0.3);
+                } else if (type === 'wrong') {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(180, now);
+                    osc.frequency.linearRampToValueAtTime(120, now + 0.15);
+                    gain.gain.setValueAtTime(0.15, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.15);
+                }
+            } catch (e) {
+                console.log('Audio disabled');
+            }
+        }
+
+        function toggleAudio() {
+            soundEnabled = !soundEnabled;
+            const icon = document.getElementById('audio-icon');
+            if (soundEnabled) {
+                icon.className = 'fa-solid fa-volume-high';
+                showToast('Suara diaktifkan');
+            } else {
+                icon.className = 'fa-solid fa-volume-xmark';
+                showToast('Suara dimatikan');
+            }
+        }
+
+        // Data Bank - 30 PG Kompleks (Sesuai kisi-kisi Alkitab & Budi Pekerti)
+        const pgQuestions = [
+            {
+                id: 1,
+                title: "1. Istilah Hamartia berasal dari bahasa Yunani yang digunakan Alkitab untuk menjelaskan konsep dosa. Manakah pemahaman yang BENAR mengenai Hamartia?",
+                options: [
+                    { id: 'A', text: "Arti dasarnya adalah meleset dari sasaran/target", correct: true },
+                    { id: 'B', text: "Menggambarkan anak panah yang memanah tepat di titik pusat", correct: false },
+                    { id: 'C', text: "Kegagalan manusia memenuhi standar kebenaran Allah", correct: true },
+                    { id: 'D', text: "Tindakan yang selalu menyenangkan hati Allah", correct: false }
+                ],
+                explanation: "Hamartia secara harfiah berarti 'meleset dari target' (seperti panah yang tidak mengenai sasaran). Dalam konteks rohani, ini menggambarkan ketidakmampuan manusia mencapai standar kebenaran kudus Allah."
+            },
+            {
+                id: 2,
+                title: "2. Berdasarkan Kejadian 2:16-17, aturan apakah yang berikan Allah kepada manusia saat berada di Taman Eden?",
+                options: [
+                    { id: 'A', text: "Boleh makan buah dari semua pohon secara bebas", correct: true },
+                    { id: 'B', text: "Pohon pengetahuan tentang yang baik dan jahat tidak boleh dimakan", correct: true },
+                    { id: 'C', text: "Manusia tidak boleh memakan buah apapun di Taman Eden", correct: false },
+                    { id: 'D', text: "Melanggar larangan Allah akan mengakibatkan kematian", correct: true }
+                ],
+                explanation: "Allah memberi kebebasan penuh menikmati buah taman, KECUALI pohon pengetahuan tentang yang baik dan yang jahat, dengan peringatan tegas bahwa melanggarnya akan mengakibatkan kematian."
+            },
+            {
+                id: 3,
+                title: "3. Berdasarkan firman Tuhan di Roma 3:10 dan Roma 3:23, bagaimanakah kondisi seluruh manusia di hadapan Allah?",
+                options: [
+                    { id: 'A', text: "Tidak ada yang benar di bumi, seorang pun tidak", correct: true },
+                    { id: 'B', text: "Ada sebagian manusia yang tidak pernah berbuat dosa", correct: false },
+                    { id: 'C', text: "Semua orang telah berbuat dosa dan kehilangan kemuliaan Allah", correct: true },
+                    { id: 'D', text: "Semua manusia secara alami memiliki kesucian yang sempurna", correct: false }
+                ],
+                explanation: "Roma 3 menegaskan secara mutlak bahwa seluruh manusia telah jatuh ke dalam dosa, kehilangan kemuliaan Allah, dan tidak ada satu orang pun yang benar dengan usahanya sendiri."
+            },
+            {
+                id: 4,
+                title: "4. Dalam kisah Kain dan Habel (Kejadian 4), bagaimanakah perkembangan dosa yang terjadi dalam diri Kain?",
+                options: [
+                    { id: 'A', text: "Diawali rasa iri hati karena persembahannya tidak diindahkan", correct: true },
+                    { id: 'B', text: "Kain menguasai emosinya dan mendengarkan teguran Tuhan", correct: false },
+                    { id: 'C', text: "Dosa mengintip di depan pintu dan Kain membiarkannya", correct: true },
+                    { id: 'D', text: "Berujung pada tindakan pembunuhan terhadap Habel", correct: true }
+                ],
+                explanation: "Dosa Kain dimulai dari rasa iri hati, kemudian mengabaikan teguran Allah hingga dosa 'mengintip di depan pintu', dan akhirnya memuncak pada pembunuhan adiknya, Habel."
+            },
+            {
+                id: 5,
+                title: "5. Analogi adonan kue yang dicampur sebutir telur busuk mengajarkan kebenaran rohani yaitu...",
+                options: [
+                    { id: 'A', text: "Sedikit dosa saja sudah mengotori seluruh kehidupan manusia", correct: true },
+                    { id: 'B', text: "Dosa kecil tidak akan berdampak pada kebersihan rohani kita", correct: false },
+                    { id: 'C', text: "Kebaikan yang banyak dapat menutupi dosa kecil yang dilakukan", correct: false },
+                    { id: 'D', text: "Dosa merusak seluruh natur dan pikiran manusia di hadapan Allah", correct: true }
+                ],
+                explanation: "Satu telur busuk merusak seluruh adonan kue, demikian juga dosa (meskipun terlihat kecil) mencemari seluruh natur, hati, dan pikiran manusia di hadapan Allah yang mahakudus."
+            },
+            {
+                id: 6,
+                title: "6. Kondisi 'Mati Secara Roh' merupakan dampak kejatuhan manusia. Manakah ciri-ciri seseorang yang mati secara roh?",
+                options: [
+                    { id: 'A', text: "Hubungan pribadinya terputus dari Allah sumber kehidupan", correct: true },
+                    { id: 'B', text: "Jantung fisiknya langsung berhenti berdetak saat itu juga", correct: false },
+                    { id: 'C', text: "Tidak memiliki kerinduan untuk hidup sesuai firman Tuhan", correct: true },
+                    { id: 'D', text: "Mengalami kegelapan rohani dan kehilangan persekutuan dengan Allah", correct: true }
+                ],
+                explanation: "Mati secara roh bukan berarti kematian fisik seketika, melainkan terputusnya hubungan rohani dengan Allah, kehilangan kerinduan akan kebenaran, dan terpisah dari persekutuan dengan-Nya."
+            },
+            {
+                id: 7,
+                title: "7. Berdasarkan Roma 6:23, apakah ajaran utama Alkitab mengenai upah dosa dan kasih karunia Allah?",
+                options: [
+                    { id: 'A', text: "Upah dari kehidupan berdosa adalah maut", correct: true },
+                    { id: 'B', text: "Karunia Allah ialah hidup kekal dalam Kristus Yesus", correct: true },
+                    { id: 'C', text: "Manusia dapat membeli hidup kekal dengan uang dan amal", correct: false },
+                    { id: 'D', text: "Maut adalah hadiah yang diberikan Allah bagi orang benar", correct: false }
+                ],
+                explanation: "Roma 6:23 menyatakan kesimpulan jelas: 'Sebab upah dosa ialah maut; tetapi karunia Allah ialah hidup kekal dalam Kristus Yesus, Tuhan kita.'"
+            },
+            {
+                id: 8,
+                title: "8. Habakuk 1:13a menyatakan mata Allah terlalu suci untuk melihat kejahatan. Manakah pernyataan yang BENAR?",
+                options: [
+                    { id: 'A', text: "Menegaskan kesucian Allah yang mutlak", correct: true },
+                    { id: 'B', text: "Allah dapat bertoleransi dengan dosa kecil manusia", correct: false },
+                    { id: 'C', text: "Kebijakan Allah kompromi terhadap pelanggaran firman", correct: false },
+                    { id: 'D', text: "Dosa memisahkan manusia secara total dari Allah yang kudus", correct: true }
+                ],
+                explanation: "Allah adalah Kudus secara mutlak. Allah tidak pernah bertoleransi atau berkompromi dengan kejahatan, sehingga dosa memisahkan manusia dari Allah."
+            },
+            {
+                id: 9,
+                title: "9. Materi 'How Does Satan Tempt Us' menjelaskan strategi Iblis saat menggoda manusia. Apakah tahapan tersebut?",
+                options: [
+                    { id: 'A', text: "He Twists God's Words: Memutarbalikkan perintah firman Allah", correct: true },
+                    { id: 'B', text: "He Lies: Menyampaikan kebohongan dan menipu manusia", correct: true },
+                    { id: 'C', text: "He Helps: Membantu manusia mendekatkan diri kepada Allah", correct: false },
+                    { id: 'D', text: "He Destroys: Bertujuan merusak hubungan manusia dengan Tuhan", correct: true }
+                ],
+                explanation: "Iblis menggoda manusia dengan tipu daya: memutarbalikkan firman (Twists), menabur kebohongan (Lies), dengan tujuan akhir merusak hubungan manusia dengan Tuhan (Destroys)."
+            },
+            {
+                id: 10,
+                title: "10. Proses kejatuhan Hawa di Kejadian 3 berlangsung runtut. Manakah di antara langkah berikut yang TERMASUK?",
+                options: [
+                    { id: 'A', text: "Eve Listens: Hawa memberi telinga mendengarkan godaan ular", correct: true },
+                    { id: 'B', text: "Eve Touches & Eats: Hawa mengambil dan memakan buah tersebut", correct: true },
+                    { id: 'C', text: "Eve Runs Away: Hawa langsung berlari menjauhi godaan ular", correct: false },
+                    { id: 'D', text: "Eve Gives to Adam: Hawa memberi buah itu kepada suaminya", correct: true }
+                ],
+                explanation: "Kejatuhan Hawa diawali dari mendengarkan ucapan ular (Listens), melihat & tergiur, mengambil lalu memakannya (Touches & Eats), serta memberikannya kepada Adam (Gives to Adam)."
+            },
+            {
+                id: 11,
+                title: "11. Yesus mengajarkan dosa tidak hanya perbuatan fisik, tetapi juga pikiran. Manakah contoh Dosa Pikiran?",
+                options: [
+                    { id: 'A', text: "Membayangkan cara jahat untuk menjahili teman hingga menangis", correct: true },
+                    { id: 'B', text: "Menyimpan rasa benci dan dendam secara rahasia di dalam hati", correct: true },
+                    { id: 'C', text: "Mendoakan teman yang sedang mengalami kesulitan belajar", correct: false },
+                    { id: 'D', text: "Menginginkan milik orang lain dengan rasa iri hati (serakah)", correct: true }
+                ],
+                explanation: "Dosa dimulai di dalam pikiran dan hati. Membayangkan niat jahat, menyimpan rasa benci/dendam, dan menginginkan milik orang lain (iri) adalah contoh nyata dosa pikiran."
+            },
+            {
+                id: 12,
+                title: "12. Berdasarkan penjelasan materi Deep Thinking, manakah sikap di bawah ini yang tergolong sebagai dosa?",
+                options: [
+                    { id: 'A', text: "Angry: Marah tak terkendali dan melukai sesama dengan kata-kata", correct: true },
+                    { id: 'B', text: "Ignoring: Sengaja cuek dan tidak peduli pada orang yang membutuhkan", correct: true },
+                    { id: 'C', text: "Cheating: Berbuat curang saat mengerjakan tes atau ujian", correct: true },
+                    { id: 'D', text: "Sharing: Membagi makanan secara adil kepada teman yang lapar", correct: false }
+                ],
+                explanation: "Sikap marah merusak (Angry), acuh tak peduli pada yang membutuhkan (Ignoring), dan mencontek/curang (Cheating) merupakan tindakan melanggar firman Tuhan."
+            },
+            {
+                id: 13,
+                title: "13. Manusia berdosa memiliki sifat sombong (Pride). Ungkapan manakah yang mencerminkan kesombongan?",
+                options: [
+                    { id: 'A', text: "\"Aku pasti bisa hebat sendiri tanpa perlu bantuan siapapun!\"", correct: true },
+                    { id: 'B', text: "\"Keberhasilanku ini semata-mata karena pertolongan dan kasih Tuhan.\"", correct: false },
+                    { id: 'C', text: "\"Pikiran dan pendapatku selalu paling benar dibanding orang lain.\"", correct: true },
+                    { id: 'D', text: "\"Mari kita berdoa meminta hikmat Tuhan sebelum mengerjakan tugas.\"", correct: false }
+                ],
+                explanation: "Kesombongan (Pride) menganggap diri tidak membutuhkan Tuhan/orang lain dan merasa dirinya paling benar, memegahkan diri sendiri."
+            },
+            {
+                id: 14,
+                title: "14. Kerendahan Hati (Modesty) adalah karakter Kristiani. Tindakan manakah yang mencerminkan kerendahan hati?",
+                options: [
+                    { id: 'A', text: "Mengakui secara jujur kelemahan dan dosa di hadapan Allah", correct: true },
+                    { id: 'B', text: "Mau mendengarkan nasihat dan teguran yang membangun", correct: true },
+                    { id: 'C', text: "Memamerkan semua prestasi di media sosial agar dipuji orang", correct: false },
+                    { id: 'D', text: "Menganggap teman lain lebih rendah kemampuannya dibanding kita", correct: false }
+                ],
+                explanation: "Kerendahan hati dicerminkan dari sikap jujur mengakui kelemahan di hadapan Allah serta mau menerima arahan dan nasihat baik dari orang lain."
+            },
+            {
+                id: 15,
+                title: "15. Alkitab mengajarkan doktrin 'Bibit Dosa' pada manusia. Kenyataan manakah yang BENAR mengenai bibit dosa?",
+                options: [
+                    { id: 'A', text: "Setiap manusia melahirkan keturunan yang mewarisi kecenderungan berdosa", correct: true },
+                    { id: 'B', text: "Bayi yang baru lahir sudah bersih 100% dari kecenderungan dosa Adam", correct: false },
+                    { id: 'C', text: "Kecenderungan berbuat jahat muncul secara alami dalam diri manusia", correct: true },
+                    { id: 'D', text: "Manusia perlu kelahiran baru di dalam Kristus untuk diubahkan", correct: true }
+                ],
+                explanation: "Sejak kejatuhan Adam, seluruh keturunan manusia mewarisi benih kecenderungan berdosa secara alami, sehingga membutuhkan karya penebusan Kristus untuk dilahirkan kembali."
+            },
+            {
+                id: 16,
+                title: "16. Kita dipanggil memilih jalan Tuhan setiap hari (Choose God's Way Every Day). Manakah tindakan yang sesuai?",
+                options: [
+                    { id: 'A', text: "Tell the truth: Selalu berani berkata jujur walau dalam kondisi sulit", correct: true },
+                    { id: 'B', text: "Obey Parents: Mengatur waktu dan taat kepada orang tua dengan suka cita", correct: true },
+                    { id: 'C', text: "Be Greedy: Mengambil porsi makanan terbanyak tanpa peduli adik", correct: false },
+                    { id: 'D', text: "Forgive others: Mau memaafkan teman yang memohon maaf", correct: true }
+                ],
+                explanation: "Memilih jalan Tuhan setiap hari berarti mempraktikkan kejujuran (Tell the truth), ketaatan kepada orang tua (Obey parents), dan mengampuni sesama (Forgive others)."
+            },
+            {
+                id: 17,
+                title: "17. Dalam kisah perempuan berbuat dosa (Yohanes 8:1-11), apakah pelajaran penting yang Yesus sampaikan?",
+                options: [
+                    { id: 'A', text: "Orang Farisi memakai perempuan itu untuk menjebak Yesus", correct: true },
+                    { id: 'B', text: "Yesus menyuruh warga langsung melempari batu tanpa ampun", correct: false },
+                    { id: 'C', text: "\"Barangsiapa di antara kamu tidak berdosa, hendaklah ia pertama melemparkan batu\"", correct: true },
+                    { id: 'D', text: "Yesus mengampuni dan menasihati agar tidak berbuat dosa lagi", correct: true }
+                ],
+                explanation: "Yesus menunjukkan kasih pengampunan-Nya. Ia menegur sikap merasa paling benar dari orang Farisi dan menasihati perempuan itu untuk bertobat dan tidak berbuat dosa lagi."
+            },
+            {
+                id: 18,
+                title: "18. Wahyu 20:6 menyebutkan istilah 'Kematian Kedua'. Kebenaran apakah yang Alkitab nyatakan tentang kematian kedua?",
+                options: [
+                    { id: 'A', text: "Kematian kedua adalah hukuman kekal terpisah dari Allah di neraka", correct: true },
+                    { id: 'B', text: "Kematian kedua adalah kematian fisik saat manusia sudah lanjut usia", correct: false },
+                    { id: 'C', text: "Orang yang menang dan setia dalam Kristus tidak dikuasai kematian kedua", correct: true },
+                    { id: 'D', text: "Kematian kedua terjadi pada semua orang tanpa terkecuali", correct: false }
+                ],
+                explanation: "Kematian kedua mengacu pada kebinasaan dan kebiasaan terpisah secara kekal dari Allah di neraka. Namun orang yang percaya dan setia dalam Kristus dibebaskan darinya."
+            },
+            {
+                id: 19,
+                title: "19. Dalam situasi What Would You Do? di sekolah, tindakan manakah yang menunjukkan pilihan hidup menurut jalan Tuhan?",
+                options: [
+                    { id: 'A', text: "Menolak dengan tegas ketika diajak teman mencontek saat tes", correct: true },
+                    { id: 'B', text: "Mengembalikan barang milik teman yang tertinggal di atas meja kelas", correct: true },
+                    { id: 'C', text: "Pura-pura tidak tahu saat melihat teman dijahili sampai menangis", correct: false },
+                    { id: 'D', text: "Mengajak teman berdoa sebelum memulai ulangan harian", correct: true }
+                ],
+                explanation: "Menolak curang, mengembalikan barang yang bukan milik kita, dan berdoa sebelum ujian adalah contoh nyata pilihan hidup yang berkenan di hadapan Allah."
+            },
+            {
+                id: 20,
+                title: "20. Yosua 24:15 memuat komitmen penting keluarga orang percaya. Pernyataan manakah yang BENAR sesuai ayat tersebut?",
+                options: [
+                    { id: 'A', text: "Berisi tegas: \"Aku dan sekeluargaku, kami akan beribadah kepada TUHAN!\"", correct: true },
+                    { id: 'B', text: "Yosua membebaskan bangsa Israel memilih allah lain jika mereka mau", correct: false },
+                    { id: 'C', text: "Komitmen ini menunjukkan keteguhan hati mengikut Tuhan secara penuh", correct: true },
+                    { id: 'D', text: "Yosua memaksa bangsa lain beribadah tanpa pilihan bebas", correct: false }
+                ],
+                explanation: "Yosua 24:15 adalah ikrar komitmen Yosua secara tegas dan mantap untuk memimpin seluruh keluarganya beribadah dan setia kepada TUHAN saja."
+            },
+            {
+                id: 21,
+                title: "21. Bagaimanakah keterbatasan amal dan perbuatan baik manusia dijelaskan di dalam Alkitab?",
+                options: [
+                    { id: 'A', text: "Perbuatan baik tidak bisa membayar hutang dosa di hadapan Allah", correct: true },
+                    { id: 'B', text: "Kebajikan amal manusia seperti kain kotor di hadapan Allah yang kudus", correct: true },
+                    { id: 'C', text: "Semakin banyak amal, secara otomatis manusia pasti masuk surga", correct: false },
+                    { id: 'D', text: "Keselamatan hanya diperoleh melalui anugerah Allah di dalam Kristus", correct: true }
+                ],
+                explanation: "Sifat perbuatan baik manusia tidak sanggup menghapus hutang dosa (Yesaya 64:6 menyebutnya seperti kain kotor). Keselamatan murni karena anugerah Allah melalui iman kepada Yesus."
+            },
+            {
+                id: 22,
+                title: "22. Meskipun manusia jatuh ke dalam dosa, Allah tetap menunjukkan kasih-Nya. Manakah bentuk kasih Allah tersebut?",
+                options: [
+                    { id: 'A', text: "Allah menyediakan jalan pengampunan melalui pengorbanan Yesus", correct: true },
+                    { id: 'B', text: "Allah langsung memusnahkan Adam dan Hawa tanpa memberi janji keselamatan", correct: false },
+                    { id: 'C', text: "Allah membuatkan pakaian dari kulit binatang untuk menutupi ketelanjangan mereka", correct: true },
+                    { id: 'D', text: "Allah memberikan janji keselamatan sejak di Kejadian 3:15", correct: true }
+                ],
+                explanation: "Kasih Allah terbukti saat Ia menjanjikan Juruselamat (Kejadian 3:15), membuatkan pakaian kulit untuk menutup ketelanjangan, dan akhirnya mengaruniakan Yesus Kristus."
+            },
+            {
+                id: 23,
+                title: "23. Tujuan pembelajaran HEAD, HEART, HAND mengajarkan perubahan hidup utuh. Pasangan manakah yang BENAR?",
+                options: [
+                    { id: 'A', text: "HEAD: Menyadari dan memahami bahwa seluruh manusia telah berdosa", correct: true },
+                    { id: 'B', text: "HEART: Merasakan penyesalan mendalam dan kerinduan untuk diampuni", correct: true },
+                    { id: 'C', text: "HAND: Melakukan tindakan nyata yang mencerminkan pertobatan setiap hari", correct: true },
+                    { id: 'D', text: "HEAD: Melatih otot tangan agar kuat bekerja keras di ladang", correct: false }
+                ],
+                explanation: "HEAD berkaitan dengan pengertian/kesadaran pikiran, HEART berkaitan dengan penyesalan hati, dan HAND berkaitan dengan aplikasi perbuatan nyata."
+            },
+            {
+                id: 24,
+                title: "24. Ular di Taman Eden menggunakan kebohongan untuk menjatuhkan manusia. Manakah bentuk kebohongan tersebut?",
+                options: [
+                    { id: 'A', text: "Mengatakan bahwa manusia \"sekali-kali tidak akan mati\"", correct: true },
+                    { id: 'B', text: "Menyatakan bahwa mata mereka akan terbuka dan menjadi seperti Allah", correct: true },
+                    { id: 'C', text: "Menyuruh manusia selalu taat dan menghormati firman Allah", correct: false },
+                    { id: 'D', text: "Menimbulkan keraguan akan kebaikan dan kebenaran perintah Allah", correct: true }
+                ],
+                explanation: "Iblis menipu Hawa dengan membantah firman Allah ('sekali-kali kamu tidak akan mati'), menjanjikan bahwa mereka akan menjadi seperti Allah, dan menanamkan keraguan."
+            },
+            {
+                id: 25,
+                title: "25. Manakah sikap mendasar yang membedakan antara 'Diriku yang Dulu' (The Old Me) dan 'Diriku yang Baru' (The New Me)?",
+                options: [
+                    { id: 'A', text: "The Old Me hidup dalam kesombongan; The New Me dalam kerendahan hati", correct: true },
+                    { id: 'B', text: "The Old Me suka berbohong; The New Me senantiasa berkata jujur", correct: true },
+                    { id: 'C', text: "The Old Me mendoakan musuh; The New Me membalas dendam", correct: false },
+                    { id: 'D', text: "The Old Me menuruti keinginan dosa; The New Me taat firman Tuhan", correct: true }
+                ],
+                explanation: "The Old Me dicirikan oleh kesombongan, kebohongan, dan keterikatan dosa. Sebaliknya, The New Me dipenuhi kerendahan hati, kejujuran, dan ketaatan kepada Kristus."
+            },
+            {
+                id: 26,
+                title: "26. Mengapa tindakan mengabaikan (Ignoring) orang yang membutuhkan pertolongan tergolong tindakan dosa?",
+                options: [
+                    { id: 'A', text: "Tahu melakukan kebaikan tetapi tidak melakukannya adalah dosa (Yakobus 4:17)", correct: true },
+                    { id: 'B', text: "Mengabaikan sesama merupakan bentuk ketiadaan kasih Kristus di dalam diri", correct: true },
+                    { id: 'C', text: "Karena mengabaikan orang lain diperbolehkan selama tidak mencuri", correct: false },
+                    { id: 'D', text: "Menutup mata terhadap penderitaan sesama melanggar hukum kasih", correct: true }
+                ],
+                explanation: "Menurut Yakobus 4:17, jika seseorang tahu melakukan kebaikan namun tidak melakukannya, ia berdosa. Cuek/mengabaikan sesama melanggar perintah kasih."
+            },
+            {
+                id: 27,
+                title: "27. Manakah bukti bahwa Allah tetap mengasihi Adam dan Hawa meskipun mereka telah jatuh ke dalam dosa?",
+                options: [
+                    { id: 'A', text: "Allah tidak langsung memusnahkan manusia pada detik itu juga", correct: true },
+                    { id: 'B', text: "Allah membuatkan pakaian dari kulit binatang untuk menutupi tubuh mereka", correct: true },
+                    { id: 'C', text: "Allah membiarkan mereka tetap tinggal di dalam Taman Eden selamanya", correct: false },
+                    { id: 'D', text: "Allah memberikan Janji Keselamatan (Induk Injil) di Kejadian 3:15", correct: true }
+                ],
+                explanation: "Allah mengekspresikan kasih-Nya dengan memberi janjinya Penebus (Kej 3:15), memelihara fisik mereka dengan pakaian kulit, dan memberi kesempatan pertobatan."
+            },
+            {
+                id: 28,
+                title: "28. Dalam konteks kehidupan sekolah, manakah contoh dosa yang sering dipicu oleh rasa iri hati (Jealous)?",
+                options: [
+                    { id: 'A', text: "Menyebarkan gosip atau rumor jahat tentang teman yang juara kelas", correct: true },
+                    { id: 'B', text: "Merusak barang milik teman karena tidak senang teman memiliki barang bagus", correct: true },
+                    { id: 'C', text: "Mendorong dan memberi selamat atas keberhasilan teman mendapatkan nilai A", correct: false },
+                    { id: 'D', text: "Pura-pura tidak mau berteman karena teman tersebut dipuji guru", correct: true }
+                ],
+                explanation: "Iri hati di sekolah sering melahirkan tindakan dengki seperti bergosip, merusak barang orang lain, serta menjauhi teman karena tidak senang melihat keberhasilannya."
+            },
+            {
+                id: 29,
+                title: "29. Mengapa Alkitab mengajarkan bahwa tidak ada seorang pun manusia bisa masuk surga hanya mengandalkan usahanya?",
+                options: [
+                    { id: 'A', text: "Karena semua manusia sudah tercemar oleh bibit dosa sejak lahir", correct: true },
+                    { id: 'B', text: "Standar kebenaran Allah itu sempurna dan tidak dapat dicapai manusia", correct: true },
+                    { id: 'C', text: "Karena surga hanya diperuntukkan bagi malaikat, bukan manusia", correct: false },
+                    { id: 'D', text: "Hanya karya penebusan Yesus yang sanggup menyucikan dosa manusia", correct: true }
+                ],
+                explanation: "Usaha manusia terbatas dan telah tercemar dosa. Standar Allah adalah kesempurnaan mutlak, yang hanya bisa dipenuhi melalui pengorbanan dan darah Kristus."
+            },
+            {
+                id: 30,
+                title: "30. Sifat kesombongan (Pride) merusak hubungan dengan Tuhan dan sesama. Manakah dampak sifat sombong?",
+                options: [
+                    { id: 'A', text: "Merasa tidak perlu berdoa atau meminta pertolongan Tuhan saat belajar", correct: true },
+                    { id: 'B', text: "Menolak mendengarkan masukan atau teguran dari orang tua dan guru", correct: true },
+                    { id: 'C', text: "Suka meremehkan dan merendahkan teman yang belum berhasil", correct: true },
+                    { id: 'D', text: "Selalu bersyukur atas setiap pemberian dan karunia yang diterima", correct: false }
+                ],
+                explanation: "Kesombongan membuat seseorang merasa tidak butuh Tuhan, menolak nasihat/teguran, serta memandang rendah dan meremehkan sesamanya."
+            }
+        ];
+
+        // Data Bank - 5 Esai Kontekstual
+        const essayQuestions = [
+            {
+                id: 1,
+                title: "Esai 1: Makna Hamartia & Contoh Nyata di Sekolah",
+                prompt: "Jelaskan arti kata 'Hamartia' berdasarkan asal bahasa Yunani! Tuliskan 2 contoh tindakan konkret anak kelas 5 SD di rumah atau sekolah yang termasuk tindakan meleset dari sasaran kehendak Allah!",
+                hint: "Petunjuk: Ingat analogi anak panah dan papan sasaran. Pikirkan situasi saat ulangan atau saat diperintah orang tua.",
+                modelAnswer: "Hamartia artinya 'meleset dari sasaran/target' (seperti panah yang gagal kena titik pusat). Dosa terjadi saat hidup kita tidak mencapai standar kebaikan Allah. Contoh di sekolah: 1) Mencontek saat ulangan karena takut nilai jelek, 2) Mengejek dan menjahili teman hingga menangis.",
+                checklist: [
+                    "Menjelaskan arti kata Hamartia (meleset dari sasaran)",
+                    "Menyebutkan contoh 1 tindakan berdosa di rumah/sekolah",
+                    "Menyebutkan contoh 2 tindakan berdosa di rumah/sekolah"
+                ]
+            },
+            {
+                id: 2,
+                title: "Esai 2: Perubahan 'The Old Me' Menjadi 'The New Me'",
+                prompt: "Bayangkan kamu secara tidak sengaja disenggol hingga minumanmu tumpah oleh teman kelasmu. Ceritakan perbedaan respon antara 'The Old Me' (Manusia Lama) dan 'The New Me' (Manusia Baru di dalam Kristus)!",
+                hint: "Petunjuk: Bandingkan sikap pembalasan/marah dengan sikap sabar dan mengampuni.",
+                modelAnswer: "Respon The Old Me: Langsung marah-marah, membentak, membalas menyenggol teman tersebut, dan menyimpan dendam. Respon The New Me: Menahan emosi, mendengarkan penjelasan teman, mau memaafkan dengan tulus, dan membantu membersihkan tumpahan air bersama-sama.",
+                checklist: [
+                    "Menggambarkan respon The Old Me (marah/balas dendam)",
+                    "Menggambarkan respon The New Me (sabar/mengampuni)",
+                    "Menunjukkan sikap yang sesuai ajaran Yesus"
+                ]
+            },
+            {
+                id: 3,
+                title: "Esai 3: Aplikasi HEAD, HEART, HAND Saat Berbuat Salah",
+                prompt: "Ketika kamu tidak sengaja merusakan piring atau mainan adik di rumah, bagaimanakah proses pertobatanmu terjadi secara utuh melalui konsep HEAD (Pikiran), HEART (Hati), dan HAND (Tindakan)?",
+                hint: "Petunjuk: Jelaskan apa yang dipikirkan otakmu (HEAD), apa yang dirasakan hatimu (HEART), dan tindakan nyata tanganmu (HAND).",
+                modelAnswer: "1) HEAD (Pikiran): Sadar dan mengakui secara jujur bahwa tindakan ceroboh atau menyembunyikan kerusakan adalah perbuatan salah. 2) HEART (Hati): Merasakan penyesalan mendalam di hati dan rindu memohon maaf. 3) HAND (Tindakan): Berani mendatangi orang tua/adik, jujur meminta maaf, dan membantu membereskan atau menggantinya.",
+                checklist: [
+                    "Penjelasan HEAD: Menyadari kesalahan secara jujur",
+                    "Penjelasan HEART: Menyesali perbuatan dalam hati",
+                    "Penjelasan HAND: Meminta maaf & bertanggung jawab"
+                ]
+            },
+            {
+                id: 4,
+                title: "Esai 4: Mengalahkan Godaan Iblis (How Satan Tempts Us)",
+                prompt: "Iblis sering menggoda siswa dengan bisikan kebohongan (He Lies & He Twists Words), contohnya: 'Ah, mencontek sekali saja tidak apa-apa, guru tidak akan tahu.' Berikan 1 contoh godaan lain yang sering dialami anak SD dan bagaimana cara mengalahkannya!",
+                hint: "Petunjuk: Pikirkan godaan memakai gadget/hp, berbohong pada ibu, atau malas berdoa.",
+                modelAnswer: "Contoh godaan: Bisikan untuk berbohong pura-pura sakit perut agar tidak ikut kerja bakti/piket kelas. Cara mengalahkannya: Mengingat firman Tuhan bahwa Allah melihat segala sesuatu, berdoa meminta Roh Kudus memberi keberanian, dan memilih melakukan kewajiban piket dengan jujur.",
+                checklist: [
+                    "Menuliskan contoh bisikan godaan Iblis yang realistis",
+                    "Menjelaskan cara mengalahkan godaan (doa/firman Tuhan)",
+                    "Menunjukkan komitmen hidup dalam kebenaran"
+                ]
+            },
+            {
+                id: 5,
+                title: "Esai 5: Komitmen Yosua 24:15 di Kehidupan Sehari-hari",
+                prompt: "Yosua 24:15 berbunyi: 'Aku dan sekeluargaku, kami akan beribadah kepada TUHAN!'. Sebutkan 3 tindakan nyata yang akan kamu lakukan minggu ini di rumah bersama keluarga sebagai bukti ketaatan kepada Tuhan!",
+                hint: "Petunjuk: Ingat aksi Mission This Week: Tell the Truth & Obey Parents.",
+                modelAnswer: "1) Selalu berkata jujur kepada orang tua meskipun takut dimarahi (Tell the truth). 2) Segera taat mematikan HP dan belajar saat diminta orang tua tanpa bersungut-sungut (Obey parents). 3) Ajak keluarga berdoa bersama sebelum tidur dan rajin beribadah di gereja.",
+                checklist: [
+                    "Tindakan 1: Kejujuran (Tell the truth)",
+                    "Tindakan 2: Ketaatan pada orang tua (Obey parents)",
+                    "Tindakan 3: Berdoa / beribadah bersama keluarga"
+                ]
+            }
+        ];
+
+        let currentUser = {
+            name: "Sahabat Kristus",
+            avatar: "🤠",
+            score: 0,
+            streak: 0,
+            maxStreak: 0,
+            userAnswers: {}, // questionId -> Array of checked option IDs ['A', 'C']
+            checkedQuestions: {}, // questionId -> boolean
+            essayAnswers: {}, // essayId -> text
+            essaySelfEval: {} // essayId -> [true, false, true]
+        };
+
+        let currentQuestionIdx = 0;
+
+        // Initialize App
+        window.onload = function() {
+            renderPGQuestion(currentQuestionIdx);
+            renderPGNavGrid();
+            renderEssays();
+            updateStatsUI();
+            
+            // Set default date in certificate
+            const now = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('cert-date').innerText = now.toLocaleDateString('id-ID', options);
+        };
+
+        // Navigation Tab Switcher
+        function switchTab(tabName) {
+            playSound('click');
+            const tabs = ['hub', 'pg', 'essay', 'result'];
+            tabs.forEach(t => {
+                document.getElementById(`view-${t}`).classList.add('hidden');
+                const btn = document.getElementById(`tab-btn-${t}`);
+                btn.className = "tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-2 text-white hover:bg-white/10";
+            });
+
+            document.getElementById(`view-${tabName}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`tab-btn-${tabName}`);
+            activeBtn.className = "tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-2 bg-white text-sky-900 shadow";
+
+            if (tabName === 'result') {
+                calculateFinalResults();
+            }
+        }
+
+        // Edit Player Name
+        function editPlayerName() {
+            const newName = prompt("Masukkan nama lengkapmu:", currentUser.name);
+            if (newName && newName.trim() !== "") {
+                currentUser.name = newName.trim();
+                document.getElementById('player-name-display').innerText = currentUser.name;
+                document.getElementById('cert-student-name').innerText = currentUser.name;
+                showToast("Nama berhasil diperbarui!");
+            }
+        }
+
+        // Avatar Modal Handlers
+        function openAvatarModal() {
+            document.getElementById('avatar-modal').classList.remove('hidden');
+        }
+        function closeAvatarModal() {
+            document.getElementById('avatar-modal').classList.add('hidden');
+        }
+        function selectAvatar(emoji) {
+            currentUser.avatar = emoji;
+            document.getElementById('avatar-display').innerText = emoji;
+            closeAvatarModal();
+            playSound('click');
+            showToast("Avatar diperbarui!");
+        }
+
+        // Toast Message Handler
+        function showToast(msg, isSuccess = true) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            const toastIcon = document.getElementById('toast-icon');
+
+            toastMsg.innerText = msg;
+            toastIcon.className = isSuccess ? "fa-solid fa-circle-check text-emerald-400" : "fa-solid fa-triangle-exclamation text-amber-400";
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 2500);
+        }
+
+        function renderPGQuestion(index) {
+            const q = pgQuestions[index];
+            document.getElementById('q-title').innerText = q.title;
+            document.getElementById('q-num-badge').innerText = q.id;
+            document.getElementById('pg-progress-text').innerText = `Soal ${index + 1} dari ${pgQuestions.length}`;
+            
+            const progressPercent = ((index + 1) / pgQuestions.length) * 100;
+            document.getElementById('pg-progress-bar').style.width = `${progressPercent}%`;
+
+            const container = document.getElementById('q-options-container');
+            container.innerHTML = '';
+
+            const selected = currentUser.userAnswers[q.id] || [];
+            const isEvaluated = currentUser.checkedQuestions[q.id] || false;
+
+            q.options.forEach(opt => {
+                const isChecked = selected.includes(opt.id);
+                let borderStyle = "border-slate-200 hover:border-sky-300 bg-white";
+                let badgeStyle = "bg-slate-100 text-slate-700";
+
+                if (isEvaluated) {
+                    if (opt.correct && isChecked) {
+                        borderStyle = "border-emerald-500 bg-emerald-50/60 font-semibold";
+                        badgeStyle = "bg-emerald-500 text-white";
+                    } else if (!opt.correct && isChecked) {
+                        borderStyle = "border-red-400 bg-red-50/60";
+                        badgeStyle = "bg-red-500 text-white";
+                    } else if (opt.correct && !isChecked) {
+                        borderStyle = "border-amber-400 bg-amber-50/60";
+                        badgeStyle = "bg-amber-500 text-white";
+                    }
+                } else if (isChecked) {
+                    borderStyle = "border-sky-500 bg-sky-50/50 shadow-sm";
+                    badgeStyle = "bg-sky-500 text-white";
+                }
+
+                const optEl = document.createElement('label');
+                optEl.className = `flex items-start gap-3 p-4 rounded-2xl border-2 transition cursor-pointer ${borderStyle}`;
+                optEl.innerHTML = `
+                    <input type="checkbox" name="q-${q.id}" value="${opt.id}" ${isChecked ? 'checked' : ''} ${isEvaluated ? 'disabled' : ''} 
+                           onchange="toggleOption(${q.id}, '${opt.id}')" class="mt-0.5 w-5 h-5 rounded border-slate-300 text-sky-600 focus:ring-sky-500">
+                    <div class="flex-1 text-xs sm:text-sm text-slate-800 leading-relaxed">
+                        <span class="inline-block px-2 py-0.5 rounded text-[11px] font-bold mr-1.5 ${badgeStyle}">${opt.id}</span>
+                        ${opt.text}
+                    </div>
+                `;
+                container.appendChild(optEl);
+            });
+
+            // Navigation Button States
+            document.getElementById('btn-prev-q').disabled = (index === 0);
+            
+            // Check explanation box
+            const expBox = document.getElementById('q-explanation-box');
+            if (isEvaluated) {
+                expBox.classList.remove('hidden');
+                displayExplanation(q, selected);
+            } else {
+                expBox.classList.add('hidden');
+            }
+
+            renderPGNavGrid();
+        }
+
+        function toggleOption(qId, optId) {
+            playSound('click');
+            if (!currentUser.userAnswers[qId]) {
+                currentUser.userAnswers[qId] = [];
+            }
+            const arr = currentUser.userAnswers[qId];
+            const idx = arr.indexOf(optId);
+            if (idx > -1) {
+                arr.splice(idx, 1);
+            } else {
+                arr.push(optId);
+            }
+            renderPGQuestion(currentQuestionIdx);
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIdx > 0) {
+                currentQuestionIdx--;
+                renderPGQuestion(currentQuestionIdx);
+            }
+        }
+        function nextQuestion() {
+            if (currentQuestionIdx < pgQuestions.length - 1) {
+                currentQuestionIdx++;
+                renderPGQuestion(currentQuestionIdx);
+            } else {
+                showToast("Kamu berada di nomor terakhir!");
+            }
+        }
+
+        function renderPGNavGrid() {
+            const grid = document.getElementById('q-nav-grid');
+            grid.innerHTML = '';
+            pgQuestions.forEach((q, idx) => {
+                const isCurrent = (idx === currentQuestionIdx);
+                const isChecked = currentUser.checkedQuestions[q.id];
+                const hasSelected = currentUser.userAnswers[q.id] && currentUser.userAnswers[q.id].length > 0;
+
+                let btnStyle = "bg-slate-100 text-slate-600 hover:bg-slate-200";
+                if (isCurrent) {
+                    btnStyle = "bg-sky-600 text-white font-bold ring-2 ring-sky-300";
+                } else if (isChecked) {
+                    btnStyle = "bg-emerald-100 text-emerald-800 font-bold border border-emerald-300";
+                } else if (hasSelected) {
+                    btnStyle = "bg-amber-100 text-amber-800 font-bold border border-amber-300";
+                }
+
+                const btn = document.createElement('button');
+                btn.className = `w-8 h-8 sm:w-9 sm:h-9 rounded-xl text-xs flex items-center justify-center transition ${btnStyle}`;
+                btn.innerText = q.id;
+                btn.onclick = () => {
+                    currentQuestionIdx = idx;
+                    renderPGQuestion(currentQuestionIdx);
+                };
+                grid.appendChild(btn);
+            });
+        }
+
+        function checkCurrentAnswer() {
+            const q = pgQuestions[currentQuestionIdx];
+            const selected = currentUser.userAnswers[q.id] || [];
+
+            if (selected.length === 0) {
+                showToast("Pilihlah minimal satu jawaban terlebih dahulu!", false);
+                return;
+            }
+
+            currentUser.checkedQuestions[q.id] = true;
+
+            const correctOptIds = q.options.filter(o => o.correct).map(o => o.id);
+            const incorrectOptIds = q.options.filter(o => !o.correct).map(o => o.id);
+
+            const pickedWrong = selected.some(id => incorrectOptIds.includes(id));
+            const pickedCorrectCount = selected.filter(id => correctOptIds.includes(id)).length;
+
+            if (!pickedWrong && pickedCorrectCount === correctOptIds.length) {
+                currentUser.streak++;
+                if (currentUser.streak > currentUser.maxStreak) currentUser.maxStreak = currentUser.streak;
+                playSound('correct');
+            } else if (!pickedWrong && pickedCorrectCount > 0) {
+                currentUser.streak = 0;
+                playSound('click');
+            } else {
+                currentUser.streak = 0;
+                playSound('wrong');
+            }
+
+            updateTotalScore();
+            renderPGQuestion(currentQuestionIdx);
+        }
+
+        function displayExplanation(q, selected) {
+            const expBox = document.getElementById('q-explanation-box');
+            const icon = document.getElementById('q-feedback-icon');
+            const title = document.getElementById('q-feedback-title');
+            const text = document.getElementById('q-explanation-text');
+
+            const correctOptIds = q.options.filter(o => o.correct).map(o => o.id);
+            const pickedWrong = selected.some(id => !correctOptIds.includes(id));
+            const pickedCorrectCount = selected.filter(id => correctOptIds.includes(id)).length;
+
+            if (!pickedWrong && pickedCorrectCount === correctOptIds.length) {
+                expBox.className = "mt-6 p-5 rounded-2xl border border-emerald-300 bg-emerald-50 text-emerald-950";
+                icon.innerHTML = "🎉";
+                title.innerText = "Sempurna! Semua Jawaban Tepat (+2 Poin)";
+            } else if (!pickedWrong && pickedCorrectCount > 0) {
+                expBox.className = "mt-6 p-5 rounded-2xl border border-amber-300 bg-amber-50 text-amber-950";
+                icon.innerHTML = "💡";
+                title.innerText = "Hampir Tepat! Jawaban Parsial (+1 Poin)";
+            } else {
+                expBox.className = "mt-6 p-5 rounded-2xl border border-red-300 bg-red-50 text-red-950";
+                icon.innerHTML = "📌";
+                title.innerText = "Kurang Tepat (0 Poin)";
+            }
+
+            text.innerHTML = `
+                <b>Kunci Jawaban Benar:</b> Option (${correctOptIds.join(', ')})<br>
+                <b>Pembahasan Alkitab:</b> ${q.explanation}
+            `;
+        }
+
+        function updateTotalScore() {
+            let totalPGScore = 0;
+            pgQuestions.forEach(q => {
+                if (currentUser.checkedQuestions[q.id]) {
+                    const selected = currentUser.userAnswers[q.id] || [];
+                    const correctOptIds = q.options.filter(o => o.correct).map(o => o.id);
+                    const incorrectOptIds = q.options.filter(o => !o.correct).map(o => o.id);
+
+                    const pickedWrong = selected.some(id => incorrectOptIds.includes(id));
+                    const pickedCorrectCount = selected.filter(id => correctOptIds.includes(id)).length;
+
+                    if (!pickedWrong && pickedCorrectCount === correctOptIds.length) {
+                        totalPGScore += 2;
+                    } else if (!pickedWrong && pickedCorrectCount > 0) {
+                        totalPGScore += 1;
+                    }
+                }
+            });
+
+            currentUser.score = totalPGScore;
+            updateStatsUI();
+        }
+
+        function updateStatsUI() {
+            document.getElementById('stat-score').innerText = `${currentUser.score} Poin`;
+            document.getElementById('stat-streak').innerText = `Combo x${currentUser.streak}`;
+        }
+
+        function renderEssays() {
+            const container = document.getElementById('essay-list-container');
+            container.innerHTML = '';
+
+            essayQuestions.forEach((e, idx) => {
+                const userText = currentUser.essayAnswers[e.id] || '';
+                const selfCheckState = currentUser.essaySelfEval[e.id] || [false, false, false];
+
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-md space-y-4";
+                card.innerHTML = `
+                    <div class="flex items-start justify-between gap-4">
+                        <div>
+                            <span class="bg-purple-100 text-purple-800 text-xs font-bold px-2.5 py-0.5 rounded-md">Soal Esai ${idx + 1}</span>
+                            <h3 class="font-display text-lg font-bold text-slate-800 mt-1">${e.title}</h3>
+                        </div>
+                        <div class="w-8 h-8 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center font-bold text-xs shrink-0">
+                            E${idx + 1}
+                        </div>
+                    </div>
+
+                    <p class="text-xs sm:text-sm text-slate-700 leading-relaxed bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                        ${e.prompt}
+                    </p>
+
+                    <div class="text-xs text-amber-700 font-medium flex items-center gap-1.5">
+                        <i class="fa-solid fa-lightbulb text-amber-500"></i> ${e.hint}
+                    </div>
+
+                    <div>
+                        <textarea id="essay-input-${e.id}" oninput="saveEssayText(${e.id})" rows="4" 
+                                  placeholder="Tuliskan jawaban reflektifmu di sini..." 
+                                  class="w-full p-4 rounded-2xl border border-slate-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 text-xs sm:text-sm text-slate-800 custom-scrollbar outline-none transition">${userText}</textarea>
+                    </div>
+
+                    <div class="bg-purple-50/50 p-4 rounded-2xl border border-purple-100 space-y-2">
+                        <h4 class="font-display font-bold text-xs text-purple-900">Rubrik Evaluasi Mandiri (Centang Poin Yang Ada Di Jawabanmu):</h4>
+                        <div class="space-y-1.5">
+                            ${e.checklist.map((item, cIdx) => `
+                                <label class="flex items-center gap-2 text-xs text-slate-700 cursor-pointer">
+                                    <input type="checkbox" ${selfCheckState[cIdx] ? 'checked' : ''} onchange="toggleEssayCheck(${e.id}, ${cIdx})" class="w-4 h-4 rounded text-purple-600 focus:ring-purple-400">
+                                    <span>${item}</span>
+                                </label>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <details class="group border border-slate-200 rounded-2xl overflow-hidden">
+                        <summary class="flex items-center justify-between p-3.5 bg-slate-50 hover:bg-slate-100 cursor-pointer text-xs font-bold text-slate-700 select-none">
+                            <span><i class="fa-solid fa-key text-purple-500 mr-2"></i>Lihat Contoh Kunci Jawaban Lengkap</span>
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition transform"></i>
+                        </summary>
+                        <div class="p-4 bg-white text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100">
+                            ${e.modelAnswer}
+                        </div>
+                    </details>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function saveEssayText(essayId) {
+            const val = document.getElementById(`essay-input-${essayId}`).value;
+            currentUser.essayAnswers[essayId] = val;
+        }
+
+        function toggleEssayCheck(essayId, checkIdx) {
+            if (!currentUser.essaySelfEval[essayId]) {
+                currentUser.essaySelfEval[essayId] = [false, false, false];
+            }
+            currentUser.essaySelfEval[essayId][checkIdx] = !currentUser.essaySelfEval[essayId][checkIdx];
+            playSound('click');
+        }
+
+        function finishAllTasks() {
+            playSound('click');
+            switchTab('result');
+        }
+
+        function calculateFinalResults() {
+            let totalPGScore = 0;
+            pgQuestions.forEach(q => {
+                if (currentUser.checkedQuestions[q.id]) {
+                    const selected = currentUser.userAnswers[q.id] || [];
+                    const correctOptIds = q.options.filter(o => o.correct).map(o => o.id);
+                    const incorrectOptIds = q.options.filter(o => !o.correct).map(o => o.id);
+
+                    const pickedWrong = selected.some(id => incorrectOptIds.includes(id));
+                    const pickedCorrectCount = selected.filter(id => correctOptIds.includes(id)).length;
+
+                    if (!pickedWrong && pickedCorrectCount === correctOptIds.length) {
+                        totalPGScore += 2;
+                    } else if (!pickedWrong && pickedCorrectCount > 0) {
+                        totalPGScore += 1;
+                    }
+                }
+            });
+
+            let totalEssayScore = 0;
+            essayQuestions.forEach(e => {
+                const checks = currentUser.essaySelfEval[e.id] || [false, false, false];
+                const checkedCount = checks.filter(c => c).length;
+                totalEssayScore += (checkedCount * 2.66);
+            });
+
+            const finalScoreVal = Math.min(100, Math.round(((totalPGScore / 60) * 70) + ((totalEssayScore / 40) * 30)));
+            const accuracyVal = Math.round((totalPGScore / 60) * 100);
+
+            document.getElementById('res-final-score').innerText = finalScoreVal;
+            document.getElementById('res-pg-score').innerText = `${totalPGScore} / 60 Poin`;
+            document.getElementById('res-accuracy').innerText = `${accuracyVal}%`;
+
+            let predicate = "Prajurit Iman";
+            let predicateColor = "text-amber-600";
+            if (finalScoreVal >= 90) {
+                predicate = "Pemanah Ulung Kebenaran";
+                predicateColor = "text-emerald-600";
+            } else if (finalScoreVal >= 75) {
+                predicate = "Laskar Kristus yang Setia";
+                predicateColor = "text-sky-600";
+            }
+            document.getElementById('res-predicate').innerText = predicate;
+            document.getElementById('res-predicate').className = `font-display text-xl font-bold mt-1 ${predicateColor}`;
+
+            renderBadges(finalScoreVal, accuracyVal);
+        }
+
+        function renderBadges(finalScore, accuracy) {
+            const container = document.getElementById('badges-container');
+            container.innerHTML = '';
+
+            const badges = [
+                { title: "🎯 Pemanah Ulung", desc: "Memahami Arti Hamartia", unlocked: true },
+                { title: "🌱 Manusia Baru", desc: "Meninggalkan The Old Me", unlocked: true },
+                { title: "📖 Ahli Kitab", desc: "Akurasi > 70%", unlocked: accuracy >= 70 },
+                { title: "⭐ Bintang Iman", desc: "Nilai Akhir > 85", unlocked: finalScore >= 85 }
+            ];
+
+            badges.forEach(b => {
+                const badgeEl = document.createElement('div');
+                badgeEl.className = `px-3.5 py-2 rounded-2xl border text-xs font-bold flex items-center gap-2 ${
+                    b.unlocked ? 'bg-amber-50 border-amber-300 text-amber-900 shadow-sm' : 'bg-slate-100 border-slate-200 text-slate-400 opacity-50'
+                }`;
+                badgeEl.innerHTML = `
+                    <span>${b.unlocked ? '🏆' : '🔒'}</span>
+                    <div>
+                        <div>${b.title}</div>
+                        <div class="text-[10px] font-normal text-slate-500">${b.desc}</div>
+                    </div>
+                `;
+                container.appendChild(badgeEl);
+            });
+        }
+
+        function restartQuiz() {
+            if (confirm("Apakah kamu ingin mengulang petualangan game dari awal?")) {
+                currentUser.score = 0;
+                currentUser.streak = 0;
+                currentUser.userAnswers = {};
+                currentUser.checkedQuestions = {};
+                currentUser.essayAnswers = {};
+                currentUser.essaySelfEval = {};
+                currentQuestionIdx = 0;
+
+                renderPGQuestion(0);
+                renderPGNavGrid();
+                renderEssays();
+                updateStatsUI();
+                switchTab('pg');
+                showToast("Petualangan diulang dari awal!");
+            }
+        }
+    </script>
+</body>
+</html>
